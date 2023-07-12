@@ -7,11 +7,14 @@ public class Gun : MonoBehaviour
     [System.Serializable]
     public struct GunStat
     {
-        public float shootDelay;
+        public float shotDelay;
         public float bulletCount;
         public float spreadAngle;
+        public float bulletSpeed;
     }
-    
+
+    private PlayerInfo playerInfo;
+
     [Header("GunStat")]
     public GunStat Stat;
 
@@ -26,15 +29,16 @@ public class Gun : MonoBehaviour
     {
         shootedBullets = new List<GameObject>();
         shootAble = true;
+        playerInfo = GetComponent<PlayerInfo>();
     }
 
     void Update()
     {
-        Shoot();
+        Shot();
     }
 
 
-    void Shoot()
+    void Shot()
     {
         if(Input.GetKey(KeyCode.Z) && shootAble)
         {
@@ -49,6 +53,8 @@ public class Gun : MonoBehaviour
                         selectBullet = Bullet;
                         selectBullet.SetActive(true);
                         selectBullet.transform.SetPositionAndRotation(muzzle.position, Quaternion.Euler(0,0,Stat.spreadAngle / 2 +  i * Stat.spreadAngle));
+                        selectBullet.GetComponent<Projectile>().Damage = playerInfo.atk;
+                        selectBullet.GetComponent<Projectile>().speed = Stat.bulletSpeed;
                         break;
                     }
                 }
@@ -57,10 +63,12 @@ public class Gun : MonoBehaviour
                 {
                     selectBullet = Instantiate(bullet, muzzle.position, Quaternion.Euler(0,0, Stat.spreadAngle / 2 + i * Stat.spreadAngle));
                     selectBullet.transform.SetParent(BulletBundle);
+                    selectBullet.GetComponent<Projectile>().Damage = playerInfo.atk;
+                    selectBullet.GetComponent<Projectile>().speed = Stat.bulletSpeed;
                     shootedBullets.Add(selectBullet);
                 }
             }
-            Invoke(nameof(DelayEnd),Stat.shootDelay);
+            Invoke(nameof(DelayEnd),Stat.shotDelay);
         }
     }
 
