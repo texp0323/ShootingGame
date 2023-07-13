@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerInfo : MonoBehaviour
 {
-    [SerializeField] int sans;   
+    private Gun playerWeapon;
 
     [Header("플레이어 스탯")]
     public int level = 1;
@@ -27,6 +27,12 @@ public class PlayerInfo : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image expBar;
 
+
+    private void Start()
+    {
+        playerWeapon = GetComponent<Gun>();   
+    }
+
     private void Update()
     {
         if(exp != takedExp)
@@ -35,23 +41,26 @@ public class PlayerInfo : MonoBehaviour
         {
             takeExp(5);
         }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            takeWeapon(sans);
-        }
     }
 
 
     //무기
     public void takeWeapon(int weaponNum)
     {
-        if(equippedWeapon != weaponNum)
+        if (equippedWeapon != weaponNum)
         {
             upgradeNum = 0;
             equippedWeapon = weaponNum;
+            playerWeapon.selectBulletSprite = playerWeapon.bulletSprites[weaponNum - 1];
+            if (weaponNum == 2) { playerWeapon.Stat.muzzleCount = 3; }
+            else {playerWeapon.Stat.muzzleCount = 1; }
             weaponReload(equippedWeapon);
         }
-        else if(upgradeNum < 10) { upgradeNum++;}
+        else if(upgradeNum < 3) { upgradeNum++;}
+    }
+    private void weaponStatReload()
+    {
+
     }
     private void weaponReload(int weaponNum)
     {

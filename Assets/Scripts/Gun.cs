@@ -5,12 +5,13 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [System.Serializable]
-    public struct GunStat
+    public class GunStat
     {
         public float shotDelay;
         public float bulletCount;
         public float spreadAngle;
         public float bulletSpeed;
+        public float muzzleCount;
     }
 
     private PlayerInfo playerInfo;
@@ -19,13 +20,18 @@ public class Gun : MonoBehaviour
     public GunStat Stat;
 
     [Header("Others")]
-    public Transform muzzle;
+    public Transform[] muzzle;
     public Transform BulletBundle;
     public GameObject bullet;
     public List<GameObject> shootedBullets;
-    private bool shootAble;
+    public Sprite[] bulletSprites;
+    public Sprite selectBulletSprite;
 
-    void Start() 
+    private bool shootAble;
+    private float curShotDelay;
+
+
+    void Start()
     {
         shootedBullets = new List<GameObject>();
         shootAble = true;
@@ -35,6 +41,13 @@ public class Gun : MonoBehaviour
     void Update()
     {
         Shot();
+        if(!shootAble)
+        {
+            curShotDelay -= Time.deltaTime;
+            if (curShotDelay < 0)
+                shootAble = true;
+        }
+
     }
 
 
@@ -43,37 +56,37 @@ public class Gun : MonoBehaviour
         if(Input.GetKey(KeyCode.Z) && shootAble)
         {
             shootAble = false;
-            for(float i = -Stat.bulletCount/2; i<Stat.bulletCount/2; i++)
+            for (int j = 0; j < Stat.muzzleCount; j++)
             {
-                GameObject selectBullet = null;
-                foreach(GameObject Bullet in shootedBullets)
+                for (float i = 0; i < Stat.bulletCount; i++)
                 {
-                    if(!Bullet.activeSelf)
+                    GameObject selectBullet = null;
+                    foreach (GameObject Bullet in shootedBullets)
                     {
-                        selectBullet = Bullet;
-                        selectBullet.SetActive(true);
-                        selectBullet.transform.SetPositionAndRotation(muzzle.position, Quaternion.Euler(0,0,Stat.spreadAngle / 2 +  i * Stat.spreadAngle));
+                        if (!Bullet.activeSelf)
+                        {
+                            selectBullet = Bullet;
+                            selectBullet.transform.SetPositionAndRotation(muzzle[j].position, Quaternion.Euler(0, 0, -Stat.spreadAngle + i * Stat.spreadAngle));
+                            selectBullet.GetComponent<Projectile>().Damage = playerInfo.atk;
+                            selectBullet.GetComponent<Projectile>().speed = Stat.bulletSpeed;
+                            selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
+                            selectBullet.SetActive(true);
+                            break;
+                        }
+                    }
+
+                    if (!selectBullet)
+                    {
+                        selectBullet = Instantiate(bullet, muzzle[j].position, Quaternion.Euler(0, 0, -Stat.spreadAngle + i * Stat.spreadAngle));
                         selectBullet.GetComponent<Projectile>().Damage = playerInfo.atk;
                         selectBullet.GetComponent<Projectile>().speed = Stat.bulletSpeed;
-                        break;
+                        selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
+                        selectBullet.transform.SetParent(BulletBundle);
+                        shootedBullets.Add(selectBullet);
                     }
                 }
-
-                if(!selectBullet)
-                {
-                    selectBullet = Instantiate(bullet, muzzle.position, Quaternion.Euler(0,0, Stat.spreadAngle / 2 + i * Stat.spreadAngle));
-                    selectBullet.transform.SetParent(BulletBundle);
-                    selectBullet.GetComponent<Projectile>().Damage = playerInfo.atk;
-                    selectBullet.GetComponent<Projectile>().speed = Stat.bulletSpeed;
-                    shootedBullets.Add(selectBullet);
-                }
             }
-            Invoke(nameof(DelayEnd),Stat.shotDelay);
+            curShotDelay = Stat.shotDelay;
         }
-    }
-
-    void DelayEnd()
-    {
-        shootAble = true;
     }
 }

@@ -10,9 +10,20 @@ public class Item : MonoBehaviour
     }
 
     public ItmeType type;
+    [SerializeField] private int weaponNum;
+    [SerializeField] private float lifeTime;
+
+    private void Start()
+    {
+        Destroy(gameObject,lifeTime);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if(type == ItmeType.weapon)
+        {
+            collision.GetComponent<PlayerInfo>().takeWeapon(weaponNum);
+        }
+        Destroy(gameObject);
     }
 }

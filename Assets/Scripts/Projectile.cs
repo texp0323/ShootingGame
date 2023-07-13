@@ -7,27 +7,15 @@ public class Projectile : MonoBehaviour
     public float speed;
     public float lifeTime;
     public float Damage;
-    private float curLifeTime;
+    public float curLifeTime = 0;
 
-    void OnEnable()
-    {
-        curLifeTime = 0;
-    }
-
-    void Update()
+    void LateUpdate()
     {
         transform.Translate(Vector2.up * Time.deltaTime * speed);
-        if(curLifeTime < lifeTime)
-        {
-            curLifeTime += Time.deltaTime;
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
         if(other.GetComponent<Enemy>())
         {
             other.GetComponent<Enemy>().TakeDam(Damage);
