@@ -22,7 +22,7 @@ public class Gun : MonoBehaviour
     [Header("Others")]
     public Transform[] muzzle;
     public Transform BulletBundle;
-    public GameObject bullet;
+    public GameObject bulletPrefab;
     public List<GameObject> shootedBullets;
     public Sprite[] bulletSprites;
     public Sprite selectBulletSprite;
@@ -58,7 +58,7 @@ public class Gun : MonoBehaviour
             shootAble = false;
             for (int j = 0; j < Stat.muzzleCount; j++)
             {
-                for (float i = 0; i < Stat.bulletCount; i++)
+                for (float i = -Stat.bulletCount / 2; i < Stat.bulletCount / 2; i++)
                 {
                     GameObject selectBullet = null;
                     foreach (GameObject Bullet in shootedBullets)
@@ -66,23 +66,24 @@ public class Gun : MonoBehaviour
                         if (!Bullet.activeSelf)
                         {
                             selectBullet = Bullet;
-                            selectBullet.transform.SetPositionAndRotation(muzzle[j].position, Quaternion.Euler(0, 0, -Stat.spreadAngle + i * Stat.spreadAngle));
+                            selectBullet.transform.SetPositionAndRotation(muzzle[j].position, Quaternion.Euler(0, 0, Stat.spreadAngle / 2 + i * Stat.spreadAngle));
                             selectBullet.GetComponent<Projectile>().Damage = playerInfo.atk;
-                            selectBullet.GetComponent<Projectile>().speed = Stat.bulletSpeed;
                             selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
                             selectBullet.SetActive(true);
+                            selectBullet.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                            selectBullet.GetComponent<Rigidbody2D>().AddForce(selectBullet.transform.up * Stat.bulletSpeed,ForceMode2D.Impulse);
                             break;
                         }
                     }
 
                     if (!selectBullet)
                     {
-                        selectBullet = Instantiate(bullet, muzzle[j].position, Quaternion.Euler(0, 0, -Stat.spreadAngle + i * Stat.spreadAngle));
-                        selectBullet.GetComponent<Projectile>().Damage = playerInfo.atk;
-                        selectBullet.GetComponent<Projectile>().speed = Stat.bulletSpeed;
-                        selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
+                        selectBullet = Instantiate(bulletPrefab, muzzle[j].position, Quaternion.Euler(0, 0, Stat.spreadAngle / 2 + i * Stat.spreadAngle));
                         selectBullet.transform.SetParent(BulletBundle);
                         shootedBullets.Add(selectBullet);
+                        selectBullet.GetComponent<Projectile>().Damage = playerInfo.atk;
+                        selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
+                        selectBullet.GetComponent<Rigidbody2D>().AddForce(selectBullet.transform.up * Stat.bulletSpeed, ForceMode2D.Impulse);
                     }
                 }
             }

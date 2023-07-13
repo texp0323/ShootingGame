@@ -52,8 +52,6 @@ public class PlayerInfo : MonoBehaviour
             upgradeNum = 0;
             equippedWeapon = weaponNum;
             playerWeapon.selectBulletSprite = playerWeapon.bulletSprites[weaponNum - 1];
-            if (weaponNum == 2) { playerWeapon.Stat.muzzleCount = 3; }
-            else {playerWeapon.Stat.muzzleCount = 1; }
             weaponReload(equippedWeapon);
         }
         else if(upgradeNum < 3) { upgradeNum++;}
@@ -75,6 +73,12 @@ public class PlayerInfo : MonoBehaviour
             transform.GetChild(weaponNum).GetChild(i).gameObject.SetActive(false);
             if (level-1 > i)
                 transform.GetChild(weaponNum).GetChild(i).gameObject.SetActive(true);
+        }
+        if (level > 4)
+        {
+            if (equippedWeapon == 1) { playerWeapon.Stat.muzzleCount = 1; }
+            if (equippedWeapon == 2) { playerWeapon.Stat.muzzleCount = 3; }
+            if (equippedWeapon == 3) { playerWeapon.Stat.muzzleCount = 5; }
         }
     }
 
