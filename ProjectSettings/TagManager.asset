@@ -11,8 +11,8 @@ TagManager:
   - Player
   - Water
   - UI
-  - Camera1
-  - 
+  - Item
+  - Projectile
   - 
   - 
   - 
@@ -38,12 +38,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: background
-    uniqueID: 504967619
-    locked: 0
-  - name: player
-    uniqueID: 2658051161
-    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 504967619
+    locked: 0
+  - name: Item
+    uniqueID: 988048161
+    locked: 0
+  - name: Projectile
+    uniqueID: 806843295
+    locked: 0
+  - name: Player
+    uniqueID: 2658051161
     locked: 0

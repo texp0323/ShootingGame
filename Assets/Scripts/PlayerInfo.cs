@@ -109,6 +109,7 @@ public class PlayerInfo : MonoBehaviour
         weaponReload(equippedWeapon);
     }
 
+    //계산함수
     private float Abs(float a)
     {
         if (a < 0)
