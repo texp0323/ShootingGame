@@ -9,10 +9,14 @@ public class Enemy : MonoBehaviour
     
     public float maxHp;
     public float hp;
+    [SerializeField] private float exp;
+
+    private PlayerInfo playerInfo;
 
     void Start() 
     {
         hp = maxHp;
+        playerInfo = GameObject.FindWithTag("Player").GetComponent<PlayerInfo>();
         spr = GetComponent<SpriteRenderer>();
     }
 
@@ -22,6 +26,12 @@ public class Enemy : MonoBehaviour
         hp -= Damage;
         spr.color = Color.red;
         Invoke(nameof(returnColor),0.05f);
+        if(hp < 1)
+        {
+            if(gameObject.activeSelf)
+                playerInfo.takeExp(exp);
+            gameObject.SetActive(false);
+        }
     }
 
     void returnColor()

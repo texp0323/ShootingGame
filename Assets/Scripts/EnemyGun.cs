@@ -2,24 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class GunStat
+public class EnemyGun : MonoBehaviour
 {
-    public float shotDelay;
-    public float bulletCount;
-    public float spreadAngle;
-    public float bulletSpeed;
-    public float muzzleCount;
-    public float damageMultipiler;
-    public int penetrationPower;
-}
-
-public class Gun : MonoBehaviour
-{
-    private PlayerInfo playerInfo;
-
     [Header("GunStat")]
     public GunStat Stat;
+    public float damage;
 
     [Header("Others")]
     public Transform[] muzzle;
@@ -37,13 +24,13 @@ public class Gun : MonoBehaviour
     {
         shootedBullets = new List<GameObject>();
         shootAble = true;
-        playerInfo = GetComponent<PlayerInfo>();
+        BulletBundle = GameObject.FindWithTag("BulletBundle").transform;
     }
 
     void Update()
     {
         Shot();
-        if(!shootAble)
+        if (!shootAble)
         {
             curShotDelay -= Time.deltaTime;
             if (curShotDelay < 0)
@@ -55,10 +42,10 @@ public class Gun : MonoBehaviour
 
     void Shot()
     {
-        if(Input.GetKey(KeyCode.Z) && shootAble)
+        if (Input.GetKey(KeyCode.Z) && shootAble)
         {
             shootAble = false;
-            for (int j = 0; j < Stat.muzzleCount; j++) 
+            for (int j = 0; j < Stat.muzzleCount; j++)
             {
                 for (float i = -Stat.bulletCount / 2; i < Stat.bulletCount / 2; i++)
                 {
@@ -71,12 +58,12 @@ public class Gun : MonoBehaviour
                             selectBullet.transform.SetPositionAndRotation(muzzle[j].position, Quaternion.Euler(0, 0, Stat.spreadAngle / 2 + i * Stat.spreadAngle));
                             Projectile bulletProjectile = selectBullet.GetComponent<Projectile>();
                             Rigidbody2D bulletRigid = selectBullet.GetComponent<Rigidbody2D>();
-                            bulletProjectile.Damage = playerInfo.atk * Stat.damageMultipiler;
+                            bulletProjectile.Damage = damage * Stat.damageMultipiler;
                             bulletProjectile.penetrationPower = Stat.penetrationPower;
                             selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
                             selectBullet.SetActive(true);
                             bulletRigid.velocity = Vector2.zero;
-                            bulletRigid.AddForce(selectBullet.transform.up * Stat.bulletSpeed,ForceMode2D.Impulse);
+                            bulletRigid.AddForce(selectBullet.transform.up * Stat.bulletSpeed, ForceMode2D.Impulse);
                             break;
                         }
                     }
@@ -88,7 +75,7 @@ public class Gun : MonoBehaviour
                         shootedBullets.Add(selectBullet);
                         Projectile bulletProjectile = selectBullet.GetComponent<Projectile>();
                         Rigidbody2D bulletRigid = selectBullet.GetComponent<Rigidbody2D>();
-                        bulletProjectile.Damage = playerInfo.atk * Stat.damageMultipiler;
+                        bulletProjectile.Damage = damage * Stat.damageMultipiler;
                         bulletProjectile.penetrationPower = Stat.penetrationPower;
                         selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
                         bulletRigid.velocity = Vector2.zero;

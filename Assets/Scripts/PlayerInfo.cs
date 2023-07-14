@@ -6,15 +6,16 @@ using UnityEngine.UI;
 public class PlayerInfo : MonoBehaviour
 {
     private Gun playerWeapon;
+    private WeaponStats weaponStats;
 
     [Header("플레이어 스탯")]
     public int level = 1;
     public float maxExp = 100;
     public float exp;
-    public int maxhp = 20;
-    public int hp;
+    public float maxhp = 20;
+    public float hp;
     public float moveSpeed = 4;
-    public int atk = 2;
+    public float atk = 2;
 
     private float takedExp;
     private bool expBarReloaded;
@@ -30,7 +31,8 @@ public class PlayerInfo : MonoBehaviour
 
     private void Start()
     {
-        playerWeapon = GetComponent<Gun>();   
+        playerWeapon = GetComponent<Gun>();
+        weaponStats = GetComponent<WeaponStats>();
     }
 
     private void Update()
@@ -41,6 +43,14 @@ public class PlayerInfo : MonoBehaviour
         {
             takeExp(5);
         }
+    }
+
+    //데미지 받기
+    public void TakeDamage(float damage)
+    {
+        hp -= damage;
+        if (hp < 1)
+            Time.timeScale = 0;
     }
 
 
@@ -54,11 +64,8 @@ public class PlayerInfo : MonoBehaviour
             playerWeapon.selectBulletSprite = playerWeapon.bulletSprites[weaponNum - 1];
             weaponReload(equippedWeapon);
         }
-        else if(upgradeNum < 3) { upgradeNum++;}
-    }
-    private void weaponStatReload()
-    {
-
+        else if (upgradeNum < 3) { upgradeNum++; }
+        playerWeapon.Stat = weaponStats.weaponStatReload(equippedWeapon, upgradeNum);
     }
     private void weaponReload(int weaponNum)
     {
@@ -73,12 +80,6 @@ public class PlayerInfo : MonoBehaviour
             transform.GetChild(weaponNum).GetChild(i).gameObject.SetActive(false);
             if (level-1 > i)
                 transform.GetChild(weaponNum).GetChild(i).gameObject.SetActive(true);
-        }
-        if (level > 4)
-        {
-            if (equippedWeapon == 1) { playerWeapon.Stat.muzzleCount = 1; }
-            if (equippedWeapon == 2) { playerWeapon.Stat.muzzleCount = 3; }
-            if (equippedWeapon == 3) { playerWeapon.Stat.muzzleCount = 5; }
         }
     }
 
@@ -118,7 +119,7 @@ public class PlayerInfo : MonoBehaviour
         level++;
         maxhp = maxhp + 20;
         hp = maxhp;
-        atk = atk + 2;
+        atk = atk + 5;
         weaponReload(equippedWeapon);
     }
 
