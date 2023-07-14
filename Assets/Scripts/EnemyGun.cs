@@ -13,7 +13,6 @@ public class EnemyGun : MonoBehaviour
     public Transform BulletBundle;
     public GameObject bulletPrefab;
     public List<GameObject> shootedBullets;
-    public Sprite[] bulletSprites;
     public Sprite selectBulletSprite;
 
     private bool shootAble;
@@ -42,7 +41,7 @@ public class EnemyGun : MonoBehaviour
 
     void Shot()
     {
-        if (Input.GetKey(KeyCode.Z) && shootAble)
+        if (shootAble)
         {
             shootAble = false;
             for (int j = 0; j < Stat.muzzleCount; j++)
@@ -63,7 +62,7 @@ public class EnemyGun : MonoBehaviour
                             selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
                             selectBullet.SetActive(true);
                             bulletRigid.velocity = Vector2.zero;
-                            bulletRigid.AddForce(selectBullet.transform.up * Stat.bulletSpeed, ForceMode2D.Impulse);
+                            bulletRigid.AddForce(selectBullet.transform.up * -1 * Stat.bulletSpeed, ForceMode2D.Impulse);
                             break;
                         }
                     }
@@ -78,8 +77,7 @@ public class EnemyGun : MonoBehaviour
                         bulletProjectile.Damage = damage * Stat.damageMultipiler;
                         bulletProjectile.penetrationPower = Stat.penetrationPower;
                         selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
-                        bulletRigid.velocity = Vector2.zero;
-                        bulletRigid.AddForce(selectBullet.transform.up * Stat.bulletSpeed, ForceMode2D.Impulse);
+                        bulletRigid.AddForce(selectBullet.transform.up * -1 * Stat.bulletSpeed, ForceMode2D.Impulse);
                     }
                 }
             }

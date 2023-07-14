@@ -20,6 +20,10 @@ public class PlayerInfo : MonoBehaviour
     private float takedExp;
     private bool expBarReloaded;
 
+    [SerializeField] private float skillCool;
+    private float curSkillCool;
+    private bool skillAble;
+
     [Header("무기")]
     [SerializeField] private int equippedWeapon = 1;
     [SerializeField] private int upgradeNum;
@@ -27,28 +31,40 @@ public class PlayerInfo : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private Image expBar;
+    [SerializeField] private Animator bloodScreenAnim;
+    [SerializeField] private Image skillUI;
 
 
     private void Start()
     {
         playerWeapon = GetComponent<Gun>();
         weaponStats = GetComponent<WeaponStats>();
+        hp = maxhp;
     }
 
     private void Update()
     {
         if(exp != takedExp)
             ExpToUI();
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            takeExp(5);
+            GameObject[] projectiles = GameObject.FindGameObjectsWithTag("EnemyProjectile");
+
         }
+    }
+
+    //스킬
+    private void skill()
+    {
+
     }
 
     //데미지 받기
     public void TakeDamage(float damage)
     {
         hp -= damage;
+        if (!bloodScreenAnim.gameObject.activeSelf) { bloodScreenAnim.gameObject.SetActive(true); }
+        bloodScreenAnim.Play("bloodScreen", -1, 0f);
         if (hp < 1)
             Time.timeScale = 0;
     }
