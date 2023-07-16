@@ -15,7 +15,6 @@ public class EnemyGun : MonoBehaviour
     public Transform BulletBundle;
     public GameObject bulletPrefab;
     public List<GameObject> shootedBullets;
-    public Sprite selectBulletSprite;
 
     private bool shootAble;
     private float curShotDelay;
@@ -38,7 +37,6 @@ public class EnemyGun : MonoBehaviour
             if (curShotDelay <= 0)
                 shootAble = true;
         }
-
     }
 
 
@@ -57,12 +55,10 @@ public class EnemyGun : MonoBehaviour
                         if (!Bullet.activeSelf)
                         {
                             selectBullet = Bullet;
-                            selectBullet.transform.SetPositionAndRotation(muzzle[j].position, Quaternion.Euler(0, 0, Stat.spreadAngle / 2 + i * Stat.spreadAngle));
+                            selectBullet.transform.SetPositionAndRotation(muzzle[j].position, Quaternion.Euler(0, 0, muzzle[j].localEulerAngles.z + Stat.spreadAngle / 2 + i * Stat.spreadAngle));
                             Projectile bulletProjectile = selectBullet.GetComponent<Projectile>();
                             Rigidbody2D bulletRigid = selectBullet.GetComponent<Rigidbody2D>();
                             bulletProjectile.Damage = damage * Stat.damageMultipiler;
-                            bulletProjectile.penetrationPower = Stat.penetrationPower;
-                            selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
                             selectBullet.SetActive(true);
                             bulletRigid.velocity = Vector2.zero;
                             bulletRigid.AddForce(selectBullet.transform.up * -1 * Stat.bulletSpeed, ForceMode2D.Impulse);
@@ -72,15 +68,13 @@ public class EnemyGun : MonoBehaviour
 
                     if (!selectBullet)
                     {
-                        selectBullet = Instantiate(bulletPrefab, muzzle[j].position, Quaternion.Euler(0, 0, Stat.spreadAngle / 2 + i * Stat.spreadAngle));
+                        selectBullet = Instantiate(bulletPrefab, muzzle[j].position, Quaternion.Euler(0, 0, muzzle[j].localEulerAngles.z + Stat.spreadAngle / 2 + i * Stat.spreadAngle));
                         selectBullet.transform.SetParent(BulletBundle);
                         shootedBullets.Add(selectBullet);
                         Projectile bulletProjectile = selectBullet.GetComponent<Projectile>();
                         Rigidbody2D bulletRigid = selectBullet.GetComponent<Rigidbody2D>();
                         bulletProjectile.Damage = damage * Stat.damageMultipiler;
-                        bulletProjectile.penetrationPower = Stat.penetrationPower;
                         bulletProjectile.particleManager = particleManager;
-                        selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
                         bulletRigid.AddForce(selectBullet.transform.up * -1 * Stat.bulletSpeed, ForceMode2D.Impulse);
                     }
                 }
