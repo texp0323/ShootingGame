@@ -15,6 +15,13 @@ public class PlayerMovement : MonoBehaviour
         playerInfo = GetComponent<PlayerInfo>();
     }
 
+    //적과 충돌시
+    public void Crash()
+    {
+        rigid.velocity = Vector2.zero;
+        rigid.AddForce(Vector2.down * 100,ForceMode2D.Impulse);
+    }
+
     private void FixedUpdate()
     {
         float h = Input.GetAxisRaw("Horizontal");

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyGun : MonoBehaviour
 {
+    private ParticleManager particleManager;
+
     [Header("GunStat")]
     public GunStat Stat;
     public float damage;
@@ -24,6 +26,7 @@ public class EnemyGun : MonoBehaviour
         shootedBullets = new List<GameObject>();
         shootAble = true;
         BulletBundle = GameObject.FindWithTag("BulletBundle").transform;
+        particleManager = GameObject.FindWithTag("ParticleManager").GetComponent<ParticleManager>();
     }
 
     void Update()
@@ -32,7 +35,7 @@ public class EnemyGun : MonoBehaviour
         if (!shootAble)
         {
             curShotDelay -= Time.deltaTime;
-            if (curShotDelay < 0)
+            if (curShotDelay <= 0)
                 shootAble = true;
         }
 
@@ -76,6 +79,7 @@ public class EnemyGun : MonoBehaviour
                         Rigidbody2D bulletRigid = selectBullet.GetComponent<Rigidbody2D>();
                         bulletProjectile.Damage = damage * Stat.damageMultipiler;
                         bulletProjectile.penetrationPower = Stat.penetrationPower;
+                        bulletProjectile.particleManager = particleManager;
                         selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
                         bulletRigid.AddForce(selectBullet.transform.up * -1 * Stat.bulletSpeed, ForceMode2D.Impulse);
                     }

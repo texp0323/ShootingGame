@@ -6,6 +6,9 @@ TagManager:
   tags:
   - BulletBundle
   - EnemyProjectile
+  - ParticleManager
+  - Enemy
+  - ItemManager
   layers:
   - Default
   - TransparentFX
@@ -51,6 +54,9 @@ TagManager:
     locked: 0
   - name: Projectile
     uniqueID: 806843295
+    locked: 0
+  - name: Effect
+    uniqueID: 3885648721
     locked: 0
   - name: Enemy
     uniqueID: 1639358387

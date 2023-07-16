@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7859202751612770172}
   m_Layer: 8
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1639358387
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d71742ab09f6ca74aab8839e178fcbf4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -103,6 +103,10 @@ MonoBehaviour:
   maxHp: 20
   hp: 0
   exp: 1
+  score: 5
+  dropItemType: 2
+  itemDropPer: 5
+  crashDamage: 10
 --- !u!114 &-318517638752809090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,10 +120,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stat:
-    shotDelay: 1
-    bulletCount: 1
-    spreadAngle: 0
-    bulletSpeed: 60
+    shotDelay: 5
+    bulletCount: 3
+    spreadAngle: 30
+    bulletSpeed: 30
     muzzleCount: 1
     damageMultipiler: 1
     penetrationPower: 0

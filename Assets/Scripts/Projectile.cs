@@ -6,18 +6,22 @@ public class Projectile : MonoBehaviour
 {
     public float Damage;
     public int penetrationPower;
+    
+    public ParticleManager particleManager;
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.GetComponent<Enemy>())
+        if (other.CompareTag("Enemy")) 
         {
             other.GetComponent<Enemy>().TakeDam(Damage);
-            if(penetrationPower < 1) { gameObject.SetActive(false); }
+            particleManager.summonProjectileHitParticle(transform.position);
+            if (penetrationPower < 1) { gameObject.SetActive(false); }
             penetrationPower--;
         }   
-        else if (other.GetComponent<PlayerInfo>())
+        else if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerInfo>().TakeDamage(Damage);
+            particleManager.summonProjectileHitParticle(transform.position);
             if (penetrationPower < 1) { gameObject.SetActive(false); }
             penetrationPower--;
         }

@@ -17,6 +17,7 @@ public class GunStat
 public class Gun : MonoBehaviour
 {
     private PlayerInfo playerInfo;
+    private ParticleManager particleManager;
 
     [Header("GunStat")]
     public GunStat Stat;
@@ -35,6 +36,7 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
+        particleManager = GameObject.FindWithTag("ParticleManager").GetComponent<ParticleManager>();
         shootedBullets = new List<GameObject>();
         shootAble = true;
         playerInfo = GetComponent<PlayerInfo>();
@@ -46,7 +48,7 @@ public class Gun : MonoBehaviour
         if(!shootAble)
         {
             curShotDelay -= Time.deltaTime;
-            if (curShotDelay < 0)
+            if (curShotDelay <= 0)
                 shootAble = true;
         }
 
@@ -90,6 +92,7 @@ public class Gun : MonoBehaviour
                         Rigidbody2D bulletRigid = selectBullet.GetComponent<Rigidbody2D>();
                         bulletProjectile.Damage = playerInfo.atk * Stat.damageMultipiler;
                         bulletProjectile.penetrationPower = Stat.penetrationPower;
+                        bulletProjectile.particleManager = particleManager;
                         selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
                         bulletRigid.velocity = Vector2.zero;
                         bulletRigid.AddForce(selectBullet.transform.up * Stat.bulletSpeed, ForceMode2D.Impulse);

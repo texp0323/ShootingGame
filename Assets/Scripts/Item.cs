@@ -9,20 +9,43 @@ public class Item : MonoBehaviour
         weapon, use
     }
 
+    private Rigidbody2D rigid;
+
     public ItmeType type;
     [SerializeField] private int weaponNum;
-    [SerializeField] private float lifeTime;
+    [SerializeField] private int useItemCode;
 
     private void Start()
     {
-        Destroy(gameObject,lifeTime);
+        rigid = GetComponent<Rigidbody2D>();
+        rigid.AddForce(Vector2.down * 15,ForceMode2D.Impulse);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(type == ItmeType.weapon)
+        if(collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerInfo>().takeWeapon(weaponNum);
+            if (type == ItmeType.weapon)
+            {
+                collision.GetComponent<PlayerInfo>().takeWeapon(weaponNum);
+            }
+            if (type == ItmeType.use)
+            {
+                switch (useItemCode)
+                {
+                    case 0:
+                        collision.GetComponent<PlayerInfo>().Heal(0.2f);
+                        break;
+                    case 1:
+                        collision.GetComponent<PlayerInfo>().Heal(1);
+                        break;
+                    case 2:
+                        collision.GetComponent<PlayerInfo>().UseInvincibility();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
         Destroy(gameObject);
     }
