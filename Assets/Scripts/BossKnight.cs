@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class BossKnight : MonoBehaviour
 {
+    private WaveManager waveManager;
+    private Enemy enemy;
     private Animator anim;
+    private SpriteRenderer spr;
 
     [Header("Muzzle")]
     [SerializeField] Transform[] muzzle;
+    [Header("SummonWave")]
+    [SerializeField] GameObject summonWave;
 
     private int selectPattern;
     private int lastPattern;
 
     private void Start()
     {
+        waveManager = GameObject.FindWithTag("WaveManager").GetComponent<WaveManager>();
+        enemy = GetComponent<Enemy>();
         anim = GetComponent<Animator>();
+        spr = GetComponent<SpriteRenderer>();
         StartCoroutine(nextPattern(0));
     }
 
@@ -30,7 +38,7 @@ public class BossKnight : MonoBehaviour
 
         do
         {
-            selectPattern = Random.Range(0, 6);
+            selectPattern = Random.Range(1, 7);
         } while (selectPattern == lastPattern);
 
         lastPattern = selectPattern;
@@ -50,7 +58,10 @@ public class BossKnight : MonoBehaviour
                 StartCoroutine(Pattern4());
                 break;
             case 5:
-                Pattern5();
+                StartCoroutine(Pattern5());
+                break;
+            case 6:
+                StartCoroutine(Pattern6());
                 break;
         }
     }
@@ -80,9 +91,26 @@ public class BossKnight : MonoBehaviour
         yield return new WaitForSeconds(0.66f);
         muzzle[3].gameObject.SetActive(true);
     }
-    private void Pattern5()
+    IEnumerator Pattern5()
     {
         StartCoroutine(nextPattern(3));
         anim.Play("Pattern5", -1, 0f);
+        enemy.hitColorAble = false;
+        yield return new WaitForSeconds(0.5f);
+        spr.color = Color.red;
+        yield return new WaitForSeconds(1.4f);
+        spr.color = Color.white;
+        enemy.hitColorAble = true;
+    }
+    IEnumerator Pattern6()
+    {
+        StartCoroutine(nextPattern(10));
+        waveManager.SetEnemyCount(13);
+        muzzle[4].gameObject.SetActive(true);
+        anim.Play("Pattern6", -1, 0f);
+        GameObject summonedWave = Instantiate(summonWave);
+        yield return new WaitForSeconds(10f);
+        Destroy(summonedWave);
+        waveManager.SetEnemyCount(1);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerInfo : MonoBehaviour
 {
+    private WaveManager waveManager;
     private PlayerMovement playerMovement;
     private Gun playerWeapon;
     private WeaponStats weaponStats;
@@ -41,6 +42,7 @@ public class PlayerInfo : MonoBehaviour
     [SerializeField] private Animator bloodScreenAnim;
     [SerializeField] private Image skillUICircle;
     private Image skillUIIcon;
+    private Text skillUIText;
     [SerializeField] private Image[] weaponCaseUIs;
     [SerializeField] private Text levelText;
     [SerializeField] private Text hpText;
@@ -62,6 +64,7 @@ public class PlayerInfo : MonoBehaviour
     private void Start()
     {
         //GetComponent
+        waveManager = GameObject.FindWithTag("WaveManager").GetComponent<WaveManager>();
         scoreManager = GetComponent<ScoreManager>();
         playerMovement = GetComponent<PlayerMovement>();
         playerWeapon = GetComponent<Gun>();
@@ -75,6 +78,7 @@ public class PlayerInfo : MonoBehaviour
 
         //UI Set
         skillUIIcon = skillUICircle.transform.GetChild(0).GetComponent<Image>();
+        skillUIText = skillUICircle.transform.GetChild(1).GetComponent<Text>();
         hpBar = hpText.transform.GetChild(1).GetComponent<Image>();
         levelToUI();
         HpToUI();
@@ -86,7 +90,7 @@ public class PlayerInfo : MonoBehaviour
         if(exp != takedExp)
             ExpToUI();
         //스킬사용
-        if (Input.GetKeyDown(KeyCode.E) && skillAble)
+        if (Input.GetKeyDown(KeyCode.X) && skillAble)
         {
             UseSkill();
         }
@@ -158,11 +162,13 @@ public class PlayerInfo : MonoBehaviour
         {
             skillUICircle.color = Color.white;
             skillUIIcon.color = Color.white;
+            skillUIText.color = Color.white;
         }
         else
         {
             skillUICircle.color = disableColor;
             skillUIIcon.color = disableColor;
+            skillUIText.color = disableColor;
         }
     }
 
@@ -259,6 +265,7 @@ public class PlayerInfo : MonoBehaviour
     public void takeExpAndScore(float takingExp, int takedScore)
     {
         scoreManager.ScoreUp(takedScore);
+        waveManager.KillEnemy();
         if(level < 5)
         {
             takedExp = takedExp + takingExp;

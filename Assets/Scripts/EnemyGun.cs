@@ -15,6 +15,8 @@ public class EnemyGun : MonoBehaviour
     public Transform BulletBundle;
     public GameObject bulletPrefab;
     public List<GameObject> shootedBullets;
+    [SerializeField] private float spawnDealy;
+    private bool spawnEnd = false;
 
     private bool shootAble;
     private float curShotDelay;
@@ -22,15 +24,22 @@ public class EnemyGun : MonoBehaviour
 
     void Start()
     {
+        Invoke(nameof(EnableSpawnDealy), spawnDealy);
         shootedBullets = new List<GameObject>();
         shootAble = true;
         BulletBundle = GameObject.FindWithTag("BulletBundle").transform;
         particleManager = GameObject.FindWithTag("ParticleManager").GetComponent<ParticleManager>();
     }
 
+    private void EnableSpawnDealy()
+    {
+        spawnEnd = true;
+    }
+
     void Update()
     {
-        Shot();
+        if(spawnEnd)
+            Shot();
         if (!shootAble)
         {
             curShotDelay -= Time.deltaTime;

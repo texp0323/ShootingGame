@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     Vector2 originSize;
     private Color hitColor = new Color(1, 0.85f, 0.85f);
+    [HideInInspector] public bool hitColorAble= true;
 
     private PlayerInfo playerInfo;
     private ParticleManager particleManager;
@@ -38,8 +39,12 @@ public class Enemy : MonoBehaviour
     {
         hp -= Damage;
         transform.localScale = originSize + new Vector2(0.1f, 0.1f);
-        spr.color = hitColor;
-        Invoke(nameof(returnColor),0.05f);
+        Invoke(nameof(ReturnSize), 0.05f);
+        if (hitColorAble)
+        {
+            spr.color = hitColor;
+            Invoke(nameof(ReturnColor), 0.05f);
+        }
         if(hp < 1)
         {
             if(gameObject.activeSelf)
@@ -59,9 +64,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void returnColor()
+    void ReturnColor()
+    {
+        spr.color = Color.white;
+    }
+    void ReturnSize()
     {
         transform.localScale = originSize;
-        spr.color = Color.white;
     }
 }
