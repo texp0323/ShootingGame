@@ -71,17 +71,13 @@ public class PlayerInfo : MonoBehaviour
         weaponStats = GetComponent<WeaponStats>();
         spr = GetComponent<SpriteRenderer>();
 
-        //값 초기화
-        hp = maxhp;
-        curSkillCool = skillCool;
-        skillAble = true;
-
         //UI Set
         skillUIIcon = skillUICircle.transform.GetChild(0).GetComponent<Image>();
         skillUIText = skillUICircle.transform.GetChild(1).GetComponent<Text>();
         hpBar = hpText.transform.GetChild(1).GetComponent<Image>();
-        levelToUI();
-        HpToUI();
+
+        //값 초기화
+        ResetPlayer();
     }
 
     private void Update()
@@ -103,6 +99,27 @@ public class PlayerInfo : MonoBehaviour
             HitRedEffectTimer();
         if (invincibilityDuration > 0)
             InvincibilityTimer();
+    }
+
+    //플레이어 초기화
+    public void ResetPlayer()
+    {
+        level = 1;
+        maxExp = 10;
+        takedExp = 0;
+        exp = 0;
+        maxhp = 20;
+        hp = maxhp;
+        atk = 5;
+        int temp = equippedWeapon;
+        if (temp > 1) { takeWeapon(1); }
+        else { takeWeapon(2); }
+        takeWeapon(temp);
+        HpToUI();
+        levelToUI();
+        ExpToUI();
+        curSkillCool = skillCool;
+        skillAble = true;
     }
 
     //체력회복

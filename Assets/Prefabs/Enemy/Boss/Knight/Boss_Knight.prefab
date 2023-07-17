@@ -229,8 +229,9 @@ MonoBehaviour:
   score: 1000
   dropItemType: 3
   itemDropPer: 100
-  isBoss: 1
   crashDamage: 3
+  isBoss: 1
+  bossNum: 1
   hitColorAble: 1
 --- !u!114 &6859773837669785862
 MonoBehaviour:

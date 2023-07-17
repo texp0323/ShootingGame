@@ -1,3 +1,4 @@
+using Microsoft.Unity.VisualStudio.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -105,7 +106,7 @@ public class BossKnight : MonoBehaviour
     IEnumerator Pattern6()
     {
         StartCoroutine(nextPattern(10));
-        waveManager.SetEnemyCount(13);
+        waveManager.SetEnemyCount(14);
         muzzle[4].gameObject.SetActive(true);
         anim.Play("Pattern6", -1, 0f);
         GameObject summonedWave = Instantiate(summonWave);

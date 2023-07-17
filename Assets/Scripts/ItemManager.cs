@@ -24,6 +24,11 @@ public class ItemManager : MonoBehaviour
                 Instantiate(items[Random.Range(0, 3)], pos, Quaternion.Euler(0, 0, 45));
                 Instantiate(items[4], pos + Vector2.right * 10, Quaternion.identity);
             }
+            if (type == 4)
+            {
+                Instantiate(items[Random.Range(0, 3)], pos, Quaternion.Euler(0, 0, 45));
+                Instantiate(items[Random.Range(3, 6)], pos + Vector2.right * 10, Quaternion.identity);
+            }
         }
     }
 }

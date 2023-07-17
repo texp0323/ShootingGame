@@ -13,8 +13,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int score;
     [SerializeField] private int dropItemType;
     [SerializeField] private int itemDropPer;
-    [SerializeField] private bool isBoss;
     public float crashDamage;
+    [SerializeField] private bool isBoss;
+    [SerializeField] int bossNum;
+    Image bossBar;
 
     Vector2 originSize;
     private Color hitColor = new Color(1, 0.85f, 0.85f);
@@ -32,12 +34,23 @@ public class Enemy : MonoBehaviour
         particleManager = GameObject.FindWithTag("ParticleManager").GetComponent<ParticleManager>();
         itemManager = GameObject.FindWithTag("ItemManager").GetComponent<ItemManager>();
         spr = GetComponent<SpriteRenderer>();
+
+        if(isBoss)
+        {
+            if(bossNum == 1)
+                bossBar = GameObject.FindWithTag("Canvas").transform.GetChild(0).GetComponent<Image>();
+            if (bossNum == 2)
+                bossBar = GameObject.FindWithTag("Canvas").transform.GetChild(1).GetComponent<Image>();
+            bossBar.gameObject.SetActive(true);
+        }
     }
 
     
     public void TakeDam(float Damage)
     {
         hp -= Damage;
+        if (isBoss)
+            bossBar.fillAmount = hp / maxHp;
         transform.localScale = originSize + new Vector2(0.1f, 0.1f);
         Invoke(nameof(ReturnSize), 0.05f);
         if (hitColorAble)
@@ -49,15 +62,17 @@ public class Enemy : MonoBehaviour
         {
             if(gameObject.activeSelf)
             {
-                playerInfo.takeExpAndScore(exp, score);
-                particleManager.summonEnemyDestroyParticle(transform.position);
                 if(isBoss)
                 {
                     for (int i = 0; i < 5; i++)
                     {
                         particleManager.summonEnemyDestroyParticle(transform.position + new Vector3(Random.Range(-16, 16), Random.Range(-16, 16), 0));
+                        bossBar.gameObject.SetActive(false);
+                        GameObject.FindWithTag("WaveManager").GetComponent<WaveManager>().SetEnemyCount(1);
                     }
                 }
+                playerInfo.takeExpAndScore(exp, score);
+                particleManager.summonEnemyDestroyParticle(transform.position);
                 itemManager.SummonItem(transform.position, dropItemType, itemDropPer);
             }
             gameObject.SetActive(false);

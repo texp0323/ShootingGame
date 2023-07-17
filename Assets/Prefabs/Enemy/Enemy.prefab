@@ -106,8 +106,9 @@ MonoBehaviour:
   score: 5
   dropItemType: 2
   itemDropPer: 5
-  isBoss: 0
   crashDamage: 10
+  isBoss: 0
+  bossBar: {fileID: 0}
   hitColorAble: 1
 --- !u!114 &-318517638752809090
 MonoBehaviour:

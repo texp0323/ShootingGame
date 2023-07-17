@@ -10,6 +10,8 @@ TagManager:
   - Enemy
   - ItemManager
   - WaveManager
+  - Canvas
+  - GameManager
   layers:
   - Default
   - TransparentFX
