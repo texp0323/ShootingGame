@@ -154,10 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stat:
-    shotDelay: 2.7
+    shotDelay: 3.3
     bulletCount: 7
     spreadAngle: 30
-    bulletSpeed: 40
+    bulletSpeed: 30
     muzzleCount: 1
     damageMultipiler: 1
     penetrationPower: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
   - {fileID: 1265916120874229197}
   BulletBundle: {fileID: 0}
   bulletPrefab: {fileID: 9089736381592852486, guid: ecf053d96e90ea84aa98f32426c33fdc, type: 3}
-  shootedBullets: []
+  bulletType: 1
   spawnDealy: 1
 --- !u!70 &3264128251778682056
 CapsuleCollider2D:

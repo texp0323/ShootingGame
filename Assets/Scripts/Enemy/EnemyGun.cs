@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyGun : MonoBehaviour
 {
     private ParticleManager particleManager;
+    private EnemyBulletManager enemyBulletManager;
 
     [Header("GunStat")]
     public GunStat Stat;
@@ -14,7 +15,7 @@ public class EnemyGun : MonoBehaviour
     public Transform[] muzzle;
     public Transform BulletBundle;
     public GameObject bulletPrefab;
-    public List<GameObject> shootedBullets;
+    [SerializeField] private int bulletType;
     [SerializeField] private float spawnDealy;
     private bool spawnEnd = false;
 
@@ -24,11 +25,11 @@ public class EnemyGun : MonoBehaviour
 
     void Start()
     {
+        particleManager = GameObject.FindWithTag("ParticleManager").GetComponent<ParticleManager>();
+        enemyBulletManager = GameObject.FindWithTag("EnemyBulletManager").GetComponent<EnemyBulletManager>();
         Invoke(nameof(EnableSpawnDealy), spawnDealy);
-        shootedBullets = new List<GameObject>();
         shootAble = true;
         BulletBundle = GameObject.FindWithTag("BulletBundle").transform;
-        particleManager = GameObject.FindWithTag("ParticleManager").GetComponent<ParticleManager>();
     }
 
     private void EnableSpawnDealy()
@@ -57,9 +58,9 @@ public class EnemyGun : MonoBehaviour
             for (int j = 0; j < Stat.muzzleCount; j++)
             {
                 for (float i = -Stat.bulletCount / 2; i < Stat.bulletCount / 2; i++)
-                {
+                {   
                     GameObject selectBullet = null;
-                    foreach (GameObject Bullet in shootedBullets)
+                    foreach (GameObject Bullet in enemyBulletManager.EnemyShootedBullets[bulletType])
                     {
                         if (!Bullet.activeSelf)
                         {
@@ -79,7 +80,7 @@ public class EnemyGun : MonoBehaviour
                     {
                         selectBullet = Instantiate(bulletPrefab, muzzle[j].position, Quaternion.Euler(0, 0, muzzle[j].localEulerAngles.z + Stat.spreadAngle / 2 + i * Stat.spreadAngle));
                         selectBullet.transform.SetParent(BulletBundle);
-                        shootedBullets.Add(selectBullet);
+                        enemyBulletManager.EnemyShootedBullets[bulletType].Add(selectBullet);
                         Projectile bulletProjectile = selectBullet.GetComponent<Projectile>();
                         Rigidbody2D bulletRigid = selectBullet.GetComponent<Rigidbody2D>();
                         bulletProjectile.Damage = damage * Stat.damageMultipiler;

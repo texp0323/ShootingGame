@@ -17,6 +17,7 @@ public class BossKnight : MonoBehaviour
 
     private int selectPattern;
     private int lastPattern;
+    public GameObject summonedWave;
 
     private void Start()
     {
@@ -109,7 +110,7 @@ public class BossKnight : MonoBehaviour
         waveManager.SetEnemyCount(14);
         muzzle[4].gameObject.SetActive(true);
         anim.Play("Pattern6", -1, 0f);
-        GameObject summonedWave = Instantiate(summonWave);
+        summonedWave = Instantiate(summonWave);
         yield return new WaitForSeconds(10f);
         Destroy(summonedWave);
         waveManager.SetEnemyCount(1);

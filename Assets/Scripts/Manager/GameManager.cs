@@ -25,6 +25,14 @@ public class GameManager : MonoBehaviour
         stageNumText.text = stageNum.ToString();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.F8))
+        {
+            playerInfo.LevelUp();
+        }
+    }
+
     public void NextStage()
     {
         stageNum++;

@@ -7,7 +7,7 @@ public class WaveManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] waves;
     [SerializeField] private GameManager gameManager;
-    private int waveCount = 0;
+    [SerializeField] private int waveCount = 0;
     private int summonedEnemysCount;
     private GameObject summonedWave;
 

@@ -69,6 +69,14 @@ public class Enemy : MonoBehaviour
                         particleManager.summonEnemyDestroyParticle(transform.position + new Vector3(Random.Range(-16, 16), Random.Range(-16, 16), 0));
                         bossBar.gameObject.SetActive(false);
                         GameObject.FindWithTag("WaveManager").GetComponent<WaveManager>().SetEnemyCount(1);
+                        if(bossNum == 1)
+                        {
+                            Destroy(GetComponent<BossKnight>().summonedWave);
+                        }
+                        if (bossNum == 2)
+                        {
+                            Destroy(GetComponent<BossLord>().summonedWave);
+                        }
                     }
                 }
                 playerInfo.takeExpAndScore(exp, score);

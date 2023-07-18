@@ -309,7 +309,7 @@ public class PlayerInfo : MonoBehaviour
     {
         exp = takedExp;
     }
-    private void LevelUp()
+    public void LevelUp()
     {
         takedExp = 0;
         maxExp = maxExp * 1.5f;
