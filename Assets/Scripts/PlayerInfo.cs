@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerInfo : MonoBehaviour
 {
+    SoundEffect weaponTakeSoundeffect;
     private WaveManager waveManager;
     private PlayerMovement playerMovement;
     private Gun playerWeapon;
@@ -30,8 +31,9 @@ public class PlayerInfo : MonoBehaviour
     private float curSkillCool;
     private bool skillAble;
 
-    [Header("스킬파티클")]
+    [Header("파티클")]
     [SerializeField] ParticleSystem skillPs;
+    [SerializeField] ParticleSystem levelUpPs;
 
     [Header("무기")]
     [SerializeField] private int equippedWeapon = 1;
@@ -64,6 +66,7 @@ public class PlayerInfo : MonoBehaviour
     private void Start()
     {
         //GetComponent
+        weaponTakeSoundeffect = transform.GetChild(5).GetComponent<SoundEffect>();
         waveManager = GameObject.FindWithTag("WaveManager").GetComponent<WaveManager>();
         scoreManager = GetComponent<ScoreManager>();
         playerMovement = GetComponent<PlayerMovement>();
@@ -82,6 +85,17 @@ public class PlayerInfo : MonoBehaviour
 
     private void Update()
     {
+        //무적 치트
+        if(Input.GetKeyDown(KeyCode.F6))
+        {
+            if(invincibility)
+            {
+                invincibilityDuration = 0.1f;
+            }
+            else
+                UseInvincibility(10000);
+        }
+
         //경험치 UI 동가화 및 레벨업 판정
         if(exp != takedExp)
             ExpToUI();
@@ -132,12 +146,15 @@ public class PlayerInfo : MonoBehaviour
     }
 
     //무적 아이템
-    public void UseInvincibility()
+    public void UseInvincibility(float value)
     {
-        invincibility = true;
-        shield.SetActive(true);
-        hpBar.color = Color.yellow;
-        invincibilityDuration = 5;
+        if(value > invincibilityDuration)
+        {
+            invincibility = true;
+            shield.SetActive(true);
+            hpBar.color = Color.yellow;
+            invincibilityDuration = value;
+        }
     }
 
     private void InvincibilityTimer()
@@ -200,6 +217,7 @@ public class PlayerInfo : MonoBehaviour
             if (hp < 1)
             {
                 hp = 0;
+                GameObject.FindWithTag("GameManager").GetComponent<GameManager>().gameEnd(scoreManager.score, true);
                 gameObject.SetActive(false);
             }
             HpToUI();
@@ -229,6 +247,7 @@ public class PlayerInfo : MonoBehaviour
     //무기
     public void takeWeapon(int weaponNum)
     {
+        weaponTakeSoundeffect.PlaySound();
         if (equippedWeapon != weaponNum)
         {
             upgradeNum = 0;
@@ -311,6 +330,11 @@ public class PlayerInfo : MonoBehaviour
     }
     public void LevelUp()
     {
+        levelUpPs.gameObject.SetActive(true);
+        levelUpPs.Stop();
+        levelUpPs.Play();
+        levelUpPs.GetComponent<AudioSource>().Stop();
+        levelUpPs.GetComponent<AudioSource>().Play();
         takedExp = 0;
         maxExp = maxExp * 1.5f;
         level++;

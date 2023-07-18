@@ -50,10 +50,18 @@ public class WaveManager : MonoBehaviour
     {
         if (summonedWave != null)
             Destroy(summonedWave);
-        if (waveCount == 6 || waveCount == 12)
+        if (waveCount == 5) { gameManager.changeBgm(0); }
+        if (waveCount == 11) { gameManager.changeBgm(2); }
+        if (waveCount == 6)
         {
+            gameManager.changeBgm(1);
             gameManager.NextStage();
             yield return new WaitForSeconds(7);
+        }
+        if(waveCount == 12)
+        {
+            gameManager.NextStage();
+            StopCoroutine("nextWave");
         }
         yield return new WaitForSeconds(3);
         summonedEnemysCount = waves[waveCount].transform.childCount;

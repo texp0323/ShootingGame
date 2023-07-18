@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+
     [SerializeField] PlayerInfo playerInfo;
     [SerializeField] ScoreManager scoreManager;
+    [SerializeField] UIandAudioManager uiManager;
+
+    [Header("BGM")]
+    [SerializeField] AudioSource bgmAds;
+    [SerializeField] AudioClip[] bgmClips;
 
     [Header("UI")]
     [SerializeField] private Text stageNumText;
@@ -17,6 +23,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] mapParticle;
 
     private int stageNum = 1;
+
+    private int endScore;
 
     private void Start()
     {
@@ -33,6 +41,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void gameEnd(int totalScore, bool death)
+    {
+        uiManager.GameClear(death, totalScore);
+    }
+
+    public void changeBgm(int bgmNum)
+    {
+        StartCoroutine(changeEnd(bgmNum));
+    }
+    IEnumerator changeEnd(int bgmNum)
+    {
+        yield return new WaitForSeconds(3);
+        bgmAds.clip = bgmClips[bgmNum];
+        bgmAds.Stop();
+        bgmAds.Play();
+    }
+
     public void NextStage()
     {
         stageNum++;
@@ -45,6 +70,7 @@ public class GameManager : MonoBehaviour
         stageClearScoreText.text = scoreManager.score.ToString();
         stageClearText.SetActive(true);
         playerInfo.ResetPlayer();
+        playerInfo.UseInvincibility(10);
         Invoke(nameof(StageClearTextEnd), 5);
     }
 
@@ -60,5 +86,9 @@ public class GameManager : MonoBehaviour
     private void StageClearTextEnd()
     {
         stageClearText.SetActive(false);
+        if (stageNum > 2)
+        {
+            gameEnd(scoreManager.score, false);
+        }
     }
 }

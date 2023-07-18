@@ -57,7 +57,7 @@ MonoBehaviour:
   - {fileID: 3769721758606607243}
   BulletBundle: {fileID: 0}
   bulletPrefab: {fileID: 9089736381592852486, guid: 1617a8db75c2a8b40887a0fcd89f5605, type: 3}
-  shootedBullets: []
+  bulletType: 0
   spawnDealy: 0
 --- !u!1 &4548947844056633091
 GameObject:
@@ -116,7 +116,7 @@ MonoBehaviour:
   - {fileID: 4024603216719482138}
   BulletBundle: {fileID: 0}
   bulletPrefab: {fileID: 9089736381592852486, guid: 1617a8db75c2a8b40887a0fcd89f5605, type: 3}
-  shootedBullets: []
+  bulletType: 0
   spawnDealy: 0
 --- !u!1 &5541012177445653007
 GameObject:
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 20000
   hp: 0
-  exp: 30
+  exp: 0
   score: 1000
   dropItemType: 3
   itemDropPer: 100
@@ -252,6 +252,7 @@ MonoBehaviour:
   - {fileID: 4640979794343567745}
   - {fileID: 3769721758606607243}
   summonWave: {fileID: 8219176759835010269, guid: 08c1c07a7c99d0044b4f29ee0f2ac4c3, type: 3}
+  summonedWave: {fileID: 0}
 --- !u!95 &4061338672954259947
 Animator:
   serializedVersion: 5
@@ -365,7 +366,7 @@ MonoBehaviour:
   - {fileID: 4640979794343567745}
   BulletBundle: {fileID: 0}
   bulletPrefab: {fileID: 9089736381592852486, guid: 1617a8db75c2a8b40887a0fcd89f5605, type: 3}
-  shootedBullets: []
+  bulletType: 0
   spawnDealy: 0
 --- !u!1 &7513189311932630773
 GameObject:
@@ -424,7 +425,7 @@ MonoBehaviour:
   - {fileID: 6030796459811982056}
   BulletBundle: {fileID: 0}
   bulletPrefab: {fileID: 9089736381592852486, guid: 1617a8db75c2a8b40887a0fcd89f5605, type: 3}
-  shootedBullets: []
+  bulletType: 0
   spawnDealy: 0
 --- !u!1 &8789513512140968528
 GameObject:
@@ -483,5 +484,5 @@ MonoBehaviour:
   - {fileID: 8379128604257040517}
   BulletBundle: {fileID: 0}
   bulletPrefab: {fileID: 9089736381592852486, guid: 1617a8db75c2a8b40887a0fcd89f5605, type: 3}
-  shootedBullets: []
+  bulletType: 0
   spawnDealy: 0

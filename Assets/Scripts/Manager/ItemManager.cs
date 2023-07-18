@@ -6,6 +6,14 @@ public class ItemManager : MonoBehaviour
 {
     [SerializeField] GameObject[] items;
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.F5))
+        {
+            SummonItem(Vector2.zero ,1, 100);
+        }
+    }
+
     public void SummonItem(Vector2 pos, int type, int dropPer)
     {
         if(Random.Range(1,101) <= dropPer)

@@ -407,7 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 20000
   hp: 0
-  exp: 30
+  exp: 0
   score: 1000
   dropItemType: 3
   itemDropPer: 100

@@ -40,7 +40,7 @@ public class Item : MonoBehaviour
                         collision.GetComponent<PlayerInfo>().Heal(1);
                         break;
                     case 2:
-                        collision.GetComponent<PlayerInfo>().UseInvincibility();
+                        collision.GetComponent<PlayerInfo>().UseInvincibility(5);
                         break;
                     default:
                         break;

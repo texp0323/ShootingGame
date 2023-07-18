@@ -16,6 +16,7 @@ public class GunStat
 
 public class Gun : MonoBehaviour
 {
+    private SoundEffect soundEffect;
     private PlayerInfo playerInfo;
     private ParticleManager particleManager;
 
@@ -40,6 +41,7 @@ public class Gun : MonoBehaviour
         shootedBullets = new List<GameObject>();
         shootAble = true;
         playerInfo = GetComponent<PlayerInfo>();
+        soundEffect = GetComponent<SoundEffect>();
     }
 
     void Update()
@@ -59,6 +61,7 @@ public class Gun : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Z) && shootAble)
         {
+            soundEffect.PlaySound();
             shootAble = false;
             for (int j = 0; j < Stat.muzzleCount; j++) 
             {
