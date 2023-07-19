@@ -30351,7 +30351,7 @@ MonoBehaviour:
   - {fileID: 832774214}
   - {fileID: 1910605501}
   - {fileID: 1138424267}
-  bulletBundle: {fileID: 0}
+  bulletBundle: {fileID: 2117588488}
   bulletPrefab: {fileID: 9089736381592852486, guid: 48ad3ca0f4539444f84c9358cb89a13c, type: 3}
   shootedBullets: []
   bulletSprites:
