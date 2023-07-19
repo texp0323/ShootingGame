@@ -164,7 +164,7 @@ MonoBehaviour:
   damage: 3
   muzzle:
   - {fileID: 7346658974397020010}
-  BulletBundle: {fileID: 0}
+  bulletBundle: {fileID: 0}
   bulletPrefab: {fileID: 9089736381592852486, guid: ecf053d96e90ea84aa98f32426c33fdc, type: 3}
   bulletType: 1
   spawnDealy: 1
