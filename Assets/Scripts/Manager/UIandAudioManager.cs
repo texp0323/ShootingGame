@@ -57,7 +57,7 @@ public class UIandAudioManager : MonoBehaviour
         effectVolume = PlayerPrefs.GetFloat("EFFECT_V");
     }
 
-    public void GameClear(bool death, int endScore)
+    public void GameClear(bool death)
     {
         clear = true;
         if (death)
@@ -65,9 +65,9 @@ public class UIandAudioManager : MonoBehaviour
             clearWindow.transform.GetChild(1).GetComponent<Text>().text = "You Died";
             clearWindow.transform.GetChild(1).GetComponent<Text>().color = Color.red;
         }
-        clearWindow.transform.GetChild(2).GetComponent<Text>().text = "Score: " + endScore;
+        clearWindow.transform.GetChild(2).GetComponent<Text>().text = "Score  " + ScoreManager.score;
         clearWindow.SetActive(true);
-        clearWindow.transform.GetChild(0).GetComponent<Text>().text = ("Time: " + Mathf.FloorToInt(timeP / 60) + " : " + Mathf.Floor(timeP % 60 * 10) / 10);
+        clearWindow.transform.GetChild(0).GetComponent<Text>().text = ("Time  " + Mathf.FloorToInt(timeP / 60) + " : " + Mathf.Floor(timeP % 60 * 10) / 10);
     }
 
     private void Update()

@@ -29088,7 +29088,7 @@ GameObject:
   - component: {fileID: 941355641}
   m_Layer: 5
   m_Name: ScoreText
-  m_TagString: Untagged
+  m_TagString: ScoreText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30200,13 +30200,12 @@ GameObject:
   - component: {fileID: 1037983813}
   - component: {fileID: 1037983818}
   - component: {fileID: 1037983811}
-  - component: {fileID: 1037983819}
+  - component: {fileID: 1037983820}
   - component: {fileID: 1037983812}
   - component: {fileID: 1037983814}
   - component: {fileID: 1037983817}
   - component: {fileID: 1037983816}
   - component: {fileID: 1037983821}
-  - component: {fileID: 1037983820}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -35326,20 +35325,6 @@ MonoBehaviour:
     muzzleCount: 5
     damageMultipiler: 0.7
     penetrationPower: 1
---- !u!114 &1037983819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1037983808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81e7799b1a4198d429ca2ce3a9693f51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 941355641}
-  score: 0
 --- !u!114 &1037983820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37079,6 +37064,50 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1755321151920933315, guid: 198bdcac4946e1343a3998382769bab7, type: 3}
   m_PrefabInstance: {fileID: 1141816551}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1176675998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1176676000}
+  - component: {fileID: 1176675999}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1176675999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176675998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e7799b1a4198d429ca2ce3a9693f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1176676000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176675998}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.780389, y: 2.1263583, z: 739.872}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1185360991
 GameObject:
   m_ObjectHideFlags: 0
@@ -39097,7 +39126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInfo: {fileID: 1037983815}
-  scoreManager: {fileID: 1037983819}
   uiManager: {fileID: 1565373972}
   bgmAds: {fileID: 1565373973}
   bgmClips:

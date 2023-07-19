@@ -11,7 +11,6 @@ public class PlayerInfo : MonoBehaviour
     private Gun playerWeapon;
     private WeaponStats weaponStats;
     private SpriteRenderer spr;
-    private ScoreManager scoreManager;
 
     [Header("플레이어 스탯")]
     public int level = 1;
@@ -68,7 +67,6 @@ public class PlayerInfo : MonoBehaviour
         //GetComponent
         weaponTakeSoundeffect = transform.GetChild(5).GetComponent<SoundEffect>();
         waveManager = GameObject.FindWithTag("WaveManager").GetComponent<WaveManager>();
-        scoreManager = GetComponent<ScoreManager>();
         playerMovement = GetComponent<PlayerMovement>();
         playerWeapon = GetComponent<Gun>();
         weaponStats = GetComponent<WeaponStats>();
@@ -217,7 +215,7 @@ public class PlayerInfo : MonoBehaviour
             if (hp < 1)
             {
                 hp = 0;
-                GameObject.FindWithTag("GameManager").GetComponent<GameManager>().GameEnd(scoreManager.score, true);
+                GameObject.FindWithTag("GameManager").GetComponent<GameManager>().GameEnd(true);
                 gameObject.SetActive(false);
             }
             HpToUI();
@@ -300,7 +298,7 @@ public class PlayerInfo : MonoBehaviour
     //레벨업
     public void TakeExpAndScore(float takingExp, int takedScore)
     {
-        scoreManager.ScoreUp(takedScore);
+        ScoreManager.ScoreUp(takedScore);
         waveManager.KillEnemy();
         if(level < 5)
         {

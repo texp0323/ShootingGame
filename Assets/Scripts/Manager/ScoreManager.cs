@@ -5,15 +5,16 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] private Text scoreText;
-    public int score;
+    static public Text scoreText;
+    static public int score;
     private void Start()
     {
+        scoreText = GameObject.FindWithTag("ScoreText").GetComponent<Text>();
         score = 0;
         scoreText.text = "0";
     }
 
-    public void ScoreUp(int plusScore)
+    static public void ScoreUp(int plusScore)
     {
         score += plusScore;
         scoreText.text = score.ToString();

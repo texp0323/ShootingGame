@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 {
 
     [SerializeField] PlayerInfo playerInfo;
-    [SerializeField] ScoreManager scoreManager;
     [SerializeField] UIandAudioManager uiManager;
 
     [Header("BGM")]
@@ -41,11 +40,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GameEnd(int totalScore, bool death)
-    {
-        uiManager.GameClear(death, totalScore);
-    }
-
     public void ChangeBgm(int bgmNum)
     {
         StartCoroutine(ChangeEnd(bgmNum));
@@ -67,7 +61,7 @@ public class GameManager : MonoBehaviour
             mapParticle[0].SetActive(false);
             mapParticle[1].SetActive(true);
         }
-        stageClearScoreText.text = scoreManager.score.ToString();
+        stageClearScoreText.text = ScoreManager.score.ToString();
         stageClearText.SetActive(true);
         playerInfo.ResetPlayer();
         playerInfo.UseInvincibility(10);
@@ -88,7 +82,11 @@ public class GameManager : MonoBehaviour
         stageClearText.SetActive(false);
         if (stageNum > 2)
         {
-            GameEnd(scoreManager.score, false);
+            GameEnd(false);
         }
+    }
+    public void GameEnd(bool death)
+    {
+        uiManager.GameClear(death);
     }
 }
