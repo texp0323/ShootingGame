@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float Damage;
+    public float damage;
     public int penetrationPower;
     
     public ParticleManager particleManager;
@@ -13,15 +13,15 @@ public class Projectile : MonoBehaviour
     {
         if (other.CompareTag("Enemy")) 
         {
-            other.GetComponent<Enemy>().TakeDam(Damage);
-            particleManager.summonProjectileHitParticle(transform.position);
+            other.GetComponent<Enemy>().TakeDam(damage);
+            particleManager.SummonProjectileHitParticle(transform.position);
             if (penetrationPower < 1) { gameObject.SetActive(false); }
             penetrationPower--;
         }   
         else if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerInfo>().TakeDamage(Damage);
-            particleManager.summonProjectileHitParticle(transform.position);
+            other.GetComponent<PlayerInfo>().TakeDamage(damage);
+            particleManager.SummonProjectileHitParticle(transform.position);
             if (penetrationPower < 1) { gameObject.SetActive(false); }
             penetrationPower--;
         }

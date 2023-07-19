@@ -24,10 +24,10 @@ public class BossKnight : MonoBehaviour
         enemy = GetComponent<Enemy>();
         anim = GetComponent<Animator>();
         spr = GetComponent<SpriteRenderer>();
-        StartCoroutine(nextPattern(0));
+        StartCoroutine(NextPattern(0));
     }
 
-    IEnumerator nextPattern(float patternDealy)
+    IEnumerator NextPattern(float patternDealy)
     {
         yield return new WaitForSeconds(patternDealy);
         anim.Play("Idle", -1, 0f);
@@ -68,33 +68,33 @@ public class BossKnight : MonoBehaviour
     }
     private void Pattern1()
     {
-        StartCoroutine(nextPattern(10));
+        StartCoroutine(NextPattern(10));
         muzzle[0].gameObject.SetActive(true);
         anim.Play("Pattern1", -1, 0f);
     }
     private void Pattern2()
     {
-        StartCoroutine(nextPattern(5));
+        StartCoroutine(NextPattern(5));
         muzzle[1].gameObject.SetActive(true);
         muzzle[2].gameObject.SetActive(true);
         anim.Play("Pattern2", -1, 0f);
     }
     private void Pattern3()
     {
-        StartCoroutine(nextPattern(5));
+        StartCoroutine(NextPattern(5));
         muzzle[3].gameObject.SetActive(true);
         anim.Play("Pattern3", -1, 0f);
     }
     IEnumerator Pattern4()
     {
-        StartCoroutine(nextPattern(10));
+        StartCoroutine(NextPattern(10));
         anim.Play("Pattern4", -1, 0f);
         yield return new WaitForSeconds(0.66f);
         muzzle[3].gameObject.SetActive(true);
     }
     IEnumerator Pattern5()
     {
-        StartCoroutine(nextPattern(3));
+        StartCoroutine(NextPattern(3));
         anim.Play("Pattern5", -1, 0f);
         enemy.hitColorAble = false;
         yield return new WaitForSeconds(0.5f);
@@ -105,7 +105,7 @@ public class BossKnight : MonoBehaviour
     }
     IEnumerator Pattern6()
     {
-        StartCoroutine(nextPattern(10));
+        StartCoroutine(NextPattern(10));
         waveManager.SetEnemyCount(14);
         muzzle[4].gameObject.SetActive(true);
         anim.Play("Pattern6", -1, 0f);

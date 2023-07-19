@@ -7,7 +7,7 @@ public class ParticleManager : MonoBehaviour
     [SerializeField] GameObject[] enemyDestroyParticles;
     [SerializeField] GameObject[] projectileHitParticles;
 
-    public void summonEnemyDestroyParticle(Vector2 summonPos)
+    public void SummonEnemyDestroyParticle(Vector2 summonPos)
     {
         foreach (GameObject enemyDestroyParticle in enemyDestroyParticles)
         {
@@ -21,7 +21,7 @@ public class ParticleManager : MonoBehaviour
         }
     }
 
-    public void summonProjectileHitParticle(Vector2 summonPos)
+    public void SummonProjectileHitParticle(Vector2 summonPos)
     {
         foreach (GameObject projectileHitParticle in projectileHitParticles)
         {

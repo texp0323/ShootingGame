@@ -25,7 +25,7 @@ public class Gun : MonoBehaviour
 
     [Header("Others")]
     public Transform[] muzzle;
-    public Transform BulletBundle;
+    public Transform bulletBundle;
     public GameObject bulletPrefab;
     public List<GameObject> shootedBullets;
     public Sprite[] bulletSprites;
@@ -76,7 +76,7 @@ public class Gun : MonoBehaviour
                             selectBullet.transform.SetPositionAndRotation(muzzle[j].position, Quaternion.Euler(0, 0, Stat.spreadAngle / 2 + i * Stat.spreadAngle));
                             Projectile bulletProjectile = selectBullet.GetComponent<Projectile>();
                             Rigidbody2D bulletRigid = selectBullet.GetComponent<Rigidbody2D>();
-                            bulletProjectile.Damage = playerInfo.atk * Stat.damageMultipiler;
+                            bulletProjectile.damage = playerInfo.atk * Stat.damageMultipiler;
                             bulletProjectile.penetrationPower = Stat.penetrationPower;
                             selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;
                             selectBullet.SetActive(true);
@@ -89,11 +89,11 @@ public class Gun : MonoBehaviour
                     if (!selectBullet)
                     {
                         selectBullet = Instantiate(bulletPrefab, muzzle[j].position, Quaternion.Euler(0, 0, Stat.spreadAngle / 2 + i * Stat.spreadAngle));
-                        selectBullet.transform.SetParent(BulletBundle);
+                        selectBullet.transform.SetParent(bulletBundle);
                         shootedBullets.Add(selectBullet);
                         Projectile bulletProjectile = selectBullet.GetComponent<Projectile>();
                         Rigidbody2D bulletRigid = selectBullet.GetComponent<Rigidbody2D>();
-                        bulletProjectile.Damage = playerInfo.atk * Stat.damageMultipiler;
+                        bulletProjectile.damage = playerInfo.atk * Stat.damageMultipiler;
                         bulletProjectile.penetrationPower = Stat.penetrationPower;
                         bulletProjectile.particleManager = particleManager;
                         selectBullet.GetComponent<SpriteRenderer>().sprite = selectBulletSprite;

@@ -123,7 +123,7 @@ public class UIandAudioManager : MonoBehaviour
         transform.GetChild(0).GetComponent<AudioSource>().Play();
     }
 
-    public void ckickSound()
+    public void CkickSound()
     {
         transform.GetChild(0).GetComponent<AudioSource>().Play();
     }

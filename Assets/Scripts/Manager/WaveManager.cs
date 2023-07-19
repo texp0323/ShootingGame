@@ -13,7 +13,7 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine("nextWave");
+        StartCoroutine("NextWave");
     }
 
     private void Update()
@@ -29,8 +29,8 @@ public class WaveManager : MonoBehaviour
                 waveCount = 0;
                 gameManager.BeforeStage();
             }
-            StopCoroutine("nextWave");
-            StartCoroutine("nextWave");
+            StopCoroutine("NextWave");
+            StartCoroutine("NextWave");
         }
     }
 
@@ -38,7 +38,7 @@ public class WaveManager : MonoBehaviour
     {
         summonedEnemysCount--;
         if (summonedEnemysCount <= 0)
-            StartCoroutine("nextWave");
+            StartCoroutine("NextWave");
     }
 
     public void SetEnemyCount(int a)
@@ -46,22 +46,22 @@ public class WaveManager : MonoBehaviour
         summonedEnemysCount = a;
     }
 
-    IEnumerator nextWave()
+    IEnumerator NextWave()
     {
         if (summonedWave != null)
             Destroy(summonedWave);
-        if (waveCount == 5) { gameManager.changeBgm(0); }
-        if (waveCount == 11) { gameManager.changeBgm(2); }
+        if (waveCount == 5) { gameManager.ChangeBgm(0); }
+        if (waveCount == 11) { gameManager.ChangeBgm(2); }
         if (waveCount == 6)
         {
-            gameManager.changeBgm(1);
+            gameManager.ChangeBgm(1);
             gameManager.NextStage();
             yield return new WaitForSeconds(7);
         }
         if(waveCount == 12)
         {
             gameManager.NextStage();
-            StopCoroutine("nextWave");
+            StopCoroutine("NextWave");
         }
         yield return new WaitForSeconds(3);
         summonedEnemysCount = waves[waveCount].transform.childCount;

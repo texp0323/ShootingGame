@@ -13,7 +13,7 @@ public class EnemyGun : MonoBehaviour
 
     [Header("Others")]
     public Transform[] muzzle;
-    public Transform BulletBundle;
+    public Transform bulletBundle;
     public GameObject bulletPrefab;
     [SerializeField] private int bulletType;
     [SerializeField] private float spawnDealy;
@@ -29,7 +29,7 @@ public class EnemyGun : MonoBehaviour
         enemyBulletManager = GameObject.FindWithTag("EnemyBulletManager").GetComponent<EnemyBulletManager>();
         Invoke(nameof(EnableSpawnDealy), spawnDealy);
         shootAble = true;
-        BulletBundle = GameObject.FindWithTag("BulletBundle").transform;
+        bulletBundle = GameObject.FindWithTag("BulletBundle").transform;
     }
 
     private void EnableSpawnDealy()
@@ -60,7 +60,7 @@ public class EnemyGun : MonoBehaviour
                 for (float i = -Stat.bulletCount / 2; i < Stat.bulletCount / 2; i++)
                 {   
                     GameObject selectBullet = null;
-                    foreach (GameObject Bullet in enemyBulletManager.EnemyShootedBullets[bulletType])
+                    foreach (GameObject Bullet in enemyBulletManager.enemyShootedBullets[bulletType])
                     {
                         if (!Bullet.activeSelf)
                         {
@@ -68,7 +68,7 @@ public class EnemyGun : MonoBehaviour
                             selectBullet.transform.SetPositionAndRotation(muzzle[j].position, Quaternion.Euler(0, 0, muzzle[j].localEulerAngles.z + Stat.spreadAngle / 2 + i * Stat.spreadAngle));
                             Projectile bulletProjectile = selectBullet.GetComponent<Projectile>();
                             Rigidbody2D bulletRigid = selectBullet.GetComponent<Rigidbody2D>();
-                            bulletProjectile.Damage = damage * Stat.damageMultipiler;
+                            bulletProjectile.damage = damage * Stat.damageMultipiler;
                             selectBullet.SetActive(true);
                             bulletRigid.velocity = Vector2.zero;
                             bulletRigid.AddForce(selectBullet.transform.up * -1 * Stat.bulletSpeed, ForceMode2D.Impulse);
@@ -79,11 +79,11 @@ public class EnemyGun : MonoBehaviour
                     if (!selectBullet)
                     {
                         selectBullet = Instantiate(bulletPrefab, muzzle[j].position, Quaternion.Euler(0, 0, muzzle[j].localEulerAngles.z + Stat.spreadAngle / 2 + i * Stat.spreadAngle));
-                        selectBullet.transform.SetParent(BulletBundle);
-                        enemyBulletManager.EnemyShootedBullets[bulletType].Add(selectBullet);
+                        selectBullet.transform.SetParent(bulletBundle);
+                        enemyBulletManager.enemyShootedBullets[bulletType].Add(selectBullet);
                         Projectile bulletProjectile = selectBullet.GetComponent<Projectile>();
                         Rigidbody2D bulletRigid = selectBullet.GetComponent<Rigidbody2D>();
-                        bulletProjectile.Damage = damage * Stat.damageMultipiler;
+                        bulletProjectile.damage = damage * Stat.damageMultipiler;
                         bulletProjectile.particleManager = particleManager;
                         bulletRigid.AddForce(selectBullet.transform.up * -1 * Stat.bulletSpeed, ForceMode2D.Impulse);
                     }

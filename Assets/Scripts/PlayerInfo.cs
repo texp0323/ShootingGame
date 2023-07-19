@@ -126,11 +126,11 @@ public class PlayerInfo : MonoBehaviour
         hp = maxhp;
         atk = 5;
         int temp = equippedWeapon;
-        if (temp > 1) { takeWeapon(1); }
-        else { takeWeapon(2); }
-        takeWeapon(temp);
+        if (temp > 1) { TakeWeapon(1); }
+        else { TakeWeapon(2); }
+        TakeWeapon(temp);
         HpToUI();
-        levelToUI();
+        LevelToUI();
         ExpToUI();
         curSkillCool = skillCool;
         skillAble = true;
@@ -217,7 +217,7 @@ public class PlayerInfo : MonoBehaviour
             if (hp < 1)
             {
                 hp = 0;
-                GameObject.FindWithTag("GameManager").GetComponent<GameManager>().gameEnd(scoreManager.score, true);
+                GameObject.FindWithTag("GameManager").GetComponent<GameManager>().GameEnd(scoreManager.score, true);
                 gameObject.SetActive(false);
             }
             HpToUI();
@@ -245,7 +245,7 @@ public class PlayerInfo : MonoBehaviour
 
 
     //무기
-    public void takeWeapon(int weaponNum)
+    public void TakeWeapon(int weaponNum)
     {
         weaponTakeSoundeffect.PlaySound();
         if (equippedWeapon != weaponNum)
@@ -253,18 +253,18 @@ public class PlayerInfo : MonoBehaviour
             upgradeNum = 0;
             equippedWeapon = weaponNum;
             playerWeapon.selectBulletSprite = playerWeapon.bulletSprites[weaponNum - 1];
-            weaponReload(equippedWeapon);
-            weaponToUI();
+            WeaponReload(equippedWeapon);
+            WeaponToUI();
         }
         else if (upgradeNum < 3) 
         {
             upgradeNum++;
-            weaponToUI();
+            WeaponToUI();
         }
 
-        playerWeapon.Stat = weaponStats.weaponStatReload(equippedWeapon, upgradeNum);
+        playerWeapon.Stat = weaponStats.WeaponStatReload(equippedWeapon, upgradeNum);
     }
-    private void weaponReload(int weaponNum)
+    private void WeaponReload(int weaponNum)
     {
         for (int i = 1; i < 4; i++)
         {
@@ -280,7 +280,7 @@ public class PlayerInfo : MonoBehaviour
         }
     }
     //무기 UI
-    private void weaponToUI()
+    private void WeaponToUI()
     {
         for (int i = 0; i < 4; i++)
         {
@@ -298,7 +298,7 @@ public class PlayerInfo : MonoBehaviour
     }
 
     //레벨업
-    public void takeExpAndScore(float takingExp, int takedScore)
+    public void TakeExpAndScore(float takingExp, int takedScore)
     {
         scoreManager.ScoreUp(takedScore);
         waveManager.KillEnemy();
@@ -313,18 +313,18 @@ public class PlayerInfo : MonoBehaviour
         if (Abs(takedExp - exp) < 0.01f)
         {
             if (takedExp != 0)
-                expBarReload();
+                ExpBarReload();
             else if(!expBarReloaded)
             {
                 expBarReloaded = true;
-                Invoke(nameof(expBarReload), 0.1f);
+                Invoke(nameof(ExpBarReload), 0.1f);
             }
         }
         exp = Mathf.Lerp(exp, takedExp, Time.deltaTime * 5);
         expBar.fillAmount = exp / maxExp;
         if (exp >= maxExp) { LevelUp(); }
     }
-    private void expBarReload()
+    private void ExpBarReload()
     {
         exp = takedExp;
     }
@@ -341,11 +341,11 @@ public class PlayerInfo : MonoBehaviour
         maxhp = maxhp + 5;
         hp = maxhp;
         atk = atk + 5;
-        weaponReload(equippedWeapon);
-        levelToUI();
+        WeaponReload(equippedWeapon);
+        LevelToUI();
         HpToUI();
     }
-    private void levelToUI()
+    private void LevelToUI()
     {
         levelText.text = ("LV. " + level);
         if(level > 4)

@@ -6,7 +6,7 @@ public class WeaponStats : MonoBehaviour
 {
     [SerializeField] GunStat[] weaponStat;
 
-    public GunStat weaponStatReload(int weaponNum, int upgradeNum)
+    public GunStat WeaponStatReload(int weaponNum, int upgradeNum)
     {
         int weaponStatNum = 0;
         weaponStatNum = (weaponNum - 1) * 4;

@@ -5,9 +5,7 @@ using UnityEngine;
 public class BossLord : MonoBehaviour
 {
     private WaveManager waveManager;
-    private Enemy enemy;
     private Animator anim;
-    private SpriteRenderer spr;
 
     [Header("Muzzle")]
     [SerializeField] Transform[] muzzle;
@@ -21,13 +19,11 @@ public class BossLord : MonoBehaviour
     private void Start()
     {
         waveManager = GameObject.FindWithTag("WaveManager").GetComponent<WaveManager>();
-        enemy = GetComponent<Enemy>();
         anim = GetComponent<Animator>();
-        spr = GetComponent<SpriteRenderer>();
-        StartCoroutine(nextPattern(0));
+        StartCoroutine(NextPattern(0));
     }
 
-    IEnumerator nextPattern(float patternDealy)
+    IEnumerator NextPattern(float patternDealy)
     {
         yield return new WaitForSeconds(patternDealy);
         anim.Play("Idle", -1, 0f);
@@ -65,7 +61,7 @@ public class BossLord : MonoBehaviour
     }
     private void Pattern1()
     {
-        StartCoroutine(nextPattern(5));
+        StartCoroutine(NextPattern(5));
         muzzle[0].gameObject.SetActive(true);
         muzzle[1].gameObject.SetActive(true);
         muzzle[2].gameObject.SetActive(true);
@@ -74,20 +70,20 @@ public class BossLord : MonoBehaviour
     }
     private void Pattern2()
     {
-        StartCoroutine(nextPattern(9));
+        StartCoroutine(NextPattern(9));
         muzzle[4].gameObject.SetActive(true);
         muzzle[5].gameObject.SetActive(true);
         anim.Play("Pattern2", -1, 0f);
     }
     private void Pattern3()
     {
-        StartCoroutine(nextPattern(10));
+        StartCoroutine(NextPattern(10));
         muzzle[6].gameObject.SetActive(true);
         anim.Play("Pattern3", -1, 0f);
     }
     IEnumerator Pattern4()
     {
-        StartCoroutine(nextPattern(12));
+        StartCoroutine(NextPattern(12));
         anim.Play("Pattern4", -1, 0f);
         yield return new WaitForSeconds(0.5f);
         muzzle[7].gameObject.SetActive(true);
@@ -96,7 +92,7 @@ public class BossLord : MonoBehaviour
     }
     IEnumerator Pattern5()
     {
-        StartCoroutine(nextPattern(10));
+        StartCoroutine(NextPattern(10));
         anim.Play("Pattern5", -1, 0f);
         muzzle[8].gameObject.SetActive(true);
         muzzle[9].gameObject.SetActive(true);

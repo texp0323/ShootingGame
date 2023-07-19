@@ -41,16 +41,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void gameEnd(int totalScore, bool death)
+    public void GameEnd(int totalScore, bool death)
     {
         uiManager.GameClear(death, totalScore);
     }
 
-    public void changeBgm(int bgmNum)
+    public void ChangeBgm(int bgmNum)
     {
-        StartCoroutine(changeEnd(bgmNum));
+        StartCoroutine(ChangeEnd(bgmNum));
     }
-    IEnumerator changeEnd(int bgmNum)
+    IEnumerator ChangeEnd(int bgmNum)
     {
         yield return new WaitForSeconds(3);
         bgmAds.clip = bgmClips[bgmNum];
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
         stageClearText.SetActive(false);
         if (stageNum > 2)
         {
-            gameEnd(scoreManager.score, false);
+            GameEnd(scoreManager.score, false);
         }
     }
 }

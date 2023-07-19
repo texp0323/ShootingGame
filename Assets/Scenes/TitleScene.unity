@@ -1611,7 +1611,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1657801590}
         m_TargetAssemblyTypeName: UIandAudioManager, Assembly-CSharp
-        m_MethodName: ckickSound
+        m_MethodName: CkickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2155,7 +2155,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1657801590}
         m_TargetAssemblyTypeName: UIandAudioManager, Assembly-CSharp
-        m_MethodName: ckickSound
+        m_MethodName: CkickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2395,7 +2395,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1657801590}
         m_TargetAssemblyTypeName: UIandAudioManager, Assembly-CSharp
-        m_MethodName: ckickSound
+        m_MethodName: CkickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3110,7 +3110,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1657801590}
         m_TargetAssemblyTypeName: UIandAudioManager, Assembly-CSharp
-        m_MethodName: ckickSound
+        m_MethodName: CkickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19600,7 +19600,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1657801590}
         m_TargetAssemblyTypeName: UIandAudioManager, Assembly-CSharp
-        m_MethodName: ckickSound
+        m_MethodName: CkickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

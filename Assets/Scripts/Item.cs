@@ -27,7 +27,7 @@ public class Item : MonoBehaviour
         {
             if (type == ItmeType.weapon)
             {
-                collision.GetComponent<PlayerInfo>().takeWeapon(weaponNum);
+                collision.GetComponent<PlayerInfo>().TakeWeapon(weaponNum);
             }
             if (type == ItmeType.use)
             {

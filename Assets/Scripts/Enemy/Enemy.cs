@@ -66,7 +66,7 @@ public class Enemy : MonoBehaviour
                 {
                     for (int i = 0; i < 5; i++)
                     {
-                        particleManager.summonEnemyDestroyParticle(transform.position + new Vector3(Random.Range(-16, 16), Random.Range(-16, 16), 0));
+                        particleManager.SummonEnemyDestroyParticle(transform.position + new Vector3(Random.Range(-16, 16), Random.Range(-16, 16), 0));
                         bossBar.gameObject.SetActive(false);
                         GameObject.FindWithTag("WaveManager").GetComponent<WaveManager>().SetEnemyCount(1);
                         if(bossNum == 1)
@@ -79,8 +79,8 @@ public class Enemy : MonoBehaviour
                         }
                     }
                 }
-                playerInfo.takeExpAndScore(exp, score);
-                particleManager.summonEnemyDestroyParticle(transform.position);
+                playerInfo.TakeExpAndScore(exp, score);
+                particleManager.SummonEnemyDestroyParticle(transform.position);
                 itemManager.SummonItem(transform.position, dropItemType, itemDropPer);
             }
             gameObject.SetActive(false);
