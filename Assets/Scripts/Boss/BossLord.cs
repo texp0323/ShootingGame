@@ -39,7 +39,7 @@ public class BossLord : MonoBehaviour
 
         do
         {
-            selectPattern = Random.Range(4, 6);
+            selectPattern = Random.Range(1, 6);
         } while (selectPattern == lastPattern);
 
         lastPattern = selectPattern;
